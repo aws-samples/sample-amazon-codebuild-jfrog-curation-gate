@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Build / CI scratch files (these are produced at build time)
+/tmp/build-env.sh
+docker-build.log
+blocked-pkg.txt
+
+# JFrog CLI local config
+.jfrog/
+
+# Editor / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store

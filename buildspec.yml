@@ -1,0 +1,34 @@
+version: 0.2
+
+# AWS CodeBuild buildspec.
+#
+# The pipeline logic lives in versioned shell scripts (below) rather than in
+# this YAML, so it can be read in code review and tested locally.
+#
+# NOTE: `shell: bash` is required — the post-build gate uses ${PIPESTATUS[0]},
+# which CodeBuild's default `sh` does not support.
+
+env:
+  shell: bash
+  variables:
+    JFROG_HOST: "<jfrog-host>"          # e.g. yourcompany.jfrog.io
+    JFROG_REPO: "<repo-pypi-virtual>"   # curated virtual pip repo
+    AWS_DEFAULT_REGION: "<region>"      # e.g. us-east-1
+    ECR_REPO: "<image-repo>"            # target ECR repository name
+    IMAGE_TAG: "latest"                 # overridden per build via start-build
+  # Secrets are pulled from AWS Secrets Manager so the JFrog token never
+  # appears in the build definition or the logs.
+  secrets-manager:
+    JFROG_USER:  "<secret-name>:username"
+    JFROG_TOKEN: "<secret-name>:access_token"
+
+phases:
+  pre_build:
+    commands:
+      - bash ./scripts/setup.sh
+  build:
+    commands:
+      - bash ./scripts/docker-build.sh
+  post_build:
+    commands:
+      - bash ./scripts/post-build.sh

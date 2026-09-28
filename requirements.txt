@@ -1,0 +1,9 @@
+# Happy-path dependencies — all expected to pass JFrog Curation.
+#
+# Pin exact versions. Curation evaluates a specific name==version, so pinning
+# removes resolution ambiguity: the package that gets audited is exactly the
+# one that ships.
+fastapi==0.115.0
+uvicorn==0.30.6
+requests==2.32.3
+pyyaml==6.0.2
