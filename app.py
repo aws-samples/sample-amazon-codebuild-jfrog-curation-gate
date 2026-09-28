@@ -21,6 +21,15 @@ def health():
 
 
 if __name__ == "__main__":
+    import os
+
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    # Bind address is configurable via APP_HOST. The default is 0.0.0.0 because
+    # this runs as a containerized service: the process must listen on all
+    # interfaces inside the container for the published port to be reachable.
+    # Isolation is provided by the container/network boundary, not by binding
+    # to loopback. Override APP_HOST (e.g. 127.0.0.1) for a local-only bind.
+    host = os.getenv("APP_HOST", "0.0.0.0")  # nosec B104
+    port = int(os.getenv("APP_PORT", "8080"))
+    uvicorn.run(app, host=host, port=port)

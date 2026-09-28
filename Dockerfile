@@ -4,7 +4,9 @@
 # when PIP_INDEX_URL points at the curated JFrog repo, every package is
 # evaluated by Curation and a blocked package fails this build.
 
-FROM python:3.11-slim
+# Base image is pulled from ECR Public (not Docker Hub) so the build does not
+# depend on an external/uncontrolled registry.
+FROM public.ecr.aws/docker/library/python:3.11-slim
 
 # Passed in by scripts/docker-build.sh (the curated JFrog index URL).
 ARG PIP_INDEX_URL
