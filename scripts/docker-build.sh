@@ -11,7 +11,7 @@ set -o pipefail
 # Pick up PIP_PROXY / ECR_URI computed in the pre-build phase.
 source /tmp/build-env.sh
 
-echo "=== STEP 2 - DOCKER BUILD WITH JFROG CURATION ==="
+echo "=== STEP 2: curated docker build ==="
 
 # Tee the full output to a log file. The post-build gate parses this log to
 # extract the block reason if Curation rejects a package.
@@ -30,7 +30,7 @@ if [ "$BUILD_EXIT" -eq 0 ]; then
   docker tag "${ECR_URI}:${IMAGE_TAG}" "${ECR_URI}:latest"
   echo "============================================"
   echo "DOCKER BUILD SUCCESSFUL"
-  echo "All dependencies resolved through JFrog Artifactory"
+  echo "ALL DEPENDENCIES APPROVED BY JFROG CURATION"
   echo "============================================"
 else
   # A blocked package -> HTTP 403 -> pip fails -> RUN layer fails ->

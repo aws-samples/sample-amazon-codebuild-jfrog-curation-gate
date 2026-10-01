@@ -96,7 +96,7 @@ dependency is approved and you should see:
 
 ```
 DOCKER BUILD SUCCESSFUL
-All dependencies resolved through JFrog Artifactory
+ALL DEPENDENCIES APPROVED BY JFROG CURATION
 ...
 PUSH SUCCESSFUL
 ```
